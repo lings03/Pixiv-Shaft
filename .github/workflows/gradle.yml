@@ -37,29 +37,34 @@ jobs:
           submodules: 'true'
           fetch-depth: 0
 
-      - name: set up JDK 17
-        uses: actions/setup-java@v4.2.2
+      - name: Setup Java
+        uses: actions/setup-java@v4
         with:
-          java-version: '17'
-          distribution: 'adopt'
+          distribution: temurin
+          java-version: 21
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
       - name: Build debug apk
-        uses: eskatos/gradle-command-action@v1
-        with:
-          arguments: assembleDebug
-          distributions-cache-enabled: true
-          dependencies-cache-enabled: true
-          configuration-cache-enabled: true
+        run: ./gradlew assembleDebug
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v2
+      - name: Upload debug artifact
+        uses: actions/upload-artifact@v4
         if: ${{ !github.head_ref }}
         with:
           name: apk-debug
           path: app/build/outputs/apk/debug
+
+      - name: Build release apk
+        run: ./gradlew assembleRelease
+
+      - name: Upload release artifact
+        uses: actions/upload-artifact@v4
+        if: ${{ !github.head_ref }}
+        with:
+          name: apk-release
+          path: app/build/outputs/apk/release
 
       - name: Get tag name
         if: startsWith(github.ref, 'refs/tags/') && github.repository == env.ORIGINAL_PROJECT
