@@ -47,19 +47,24 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build debug apk
-        uses: eskatos/gradle-command-action@v1
-        with:
-          arguments: assembleDebug
-          distributions-cache-enabled: true
-          dependencies-cache-enabled: true
-          configuration-cache-enabled: true
+        run: ./gradlew assembleDebug
 
-      - name: Upload artifact
+      - name: Upload debug artifact
         uses: actions/upload-artifact@v4
         if: ${{ !github.head_ref }}
         with:
           name: apk-debug
           path: app/build/outputs/apk/debug
+
+      - name: Build release apk
+        run: ./gradlew assembleRelease
+
+      - name: Upload release artifact
+        uses: actions/upload-artifact@v4
+        if: ${{ !github.head_ref }}
+        with:
+          name: apk-release
+          path: app/build/outputs/apk/release
 
       - name: Get tag name
         if: startsWith(github.ref, 'refs/tags/') && github.repository == env.ORIGINAL_PROJECT

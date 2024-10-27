@@ -1,15 +1,15 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdk 34
+    compileSdk 35
 
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 34
+        minSdk 23
+        targetSdkVersion 35
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
