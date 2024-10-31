@@ -10,6 +10,13 @@ apply plugin: 'androidx.navigation.safeargs.kotlin'
 android {
     compileSdk 34
 
+    splits {
+        abi {
+            enable true
+            reset()
+            include("arm64-v8a", "x86_64", "armeabi-v7a")
+        }
+    }
 
     defaultConfig {
         applicationId "ceui.lisa.pixiv"
@@ -93,7 +100,6 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
 
 
-
     //=============== Navigation
     def nav_version = "2.7.7"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
@@ -115,18 +121,18 @@ dependencies {
 
     implementation 'com.github.bumptech.glide:glide:4.16.0'
     kapt 'com.github.bumptech.glide:compiler:4.16.0'
-    implementation ('com.github.bumptech.glide:okhttp3-integration:4.16.0'){
+    implementation('com.github.bumptech.glide:okhttp3-integration:4.16.0') {
         exclude group: 'glide-parent'
     }
 
     implementation 'com.github.lzyzsd:circleprogress:1.2.1'
 
     def refresh_version = "2.0.6"
-    implementation  "io.github.scwang90:refresh-layout-kernel:$refresh_version"     //核心必须依赖
-    implementation  "io.github.scwang90:refresh-header-classics:$refresh_version"    //经典刷新头
-    implementation  "io.github.scwang90:refresh-header-falsify:$refresh_version"     //虚拟刷新头
-    implementation  "io.github.scwang90:refresh-header-material:$refresh_version"    //谷歌刷新头
-    implementation  "io.github.scwang90:refresh-footer-classics:$refresh_version"    //经典加载
+    implementation "io.github.scwang90:refresh-layout-kernel:$refresh_version"     //核心必须依赖
+    implementation "io.github.scwang90:refresh-header-classics:$refresh_version"    //经典刷新头
+    implementation "io.github.scwang90:refresh-header-falsify:$refresh_version"     //虚拟刷新头
+    implementation "io.github.scwang90:refresh-header-material:$refresh_version"    //谷歌刷新头
+    implementation "io.github.scwang90:refresh-footer-classics:$refresh_version"    //经典加载
 
     // okhttp3系列组件版本最高到 4.4.1，参看 RubySSLSocketFactory
     implementation 'com.squareup.okhttp3:logging-interceptor:4.4.1'
