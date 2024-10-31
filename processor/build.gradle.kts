@@ -1,6 +1,6 @@
 plugins {
     id("java-library")
-    id("org.jetbrains.kotlin.jvm")
+    id("org.jetbrains.kotlin.jvm") version "2.0.21"
     id("kotlin-kapt")
 }
 
@@ -10,11 +10,15 @@ java {
 }
 
 dependencies {
+    // 添加 KAPT 依赖
     kapt(project(":annotations"))
     compileOnly(project(":annotations"))
 
-    kapt ("com.google.auto.service:auto-service:1.1.1")
-    implementation ("com.google.auto.service:auto-service:1.1.1")
+    // 添加注解处理器相关依赖
+    kapt("com.google.auto.service:auto-service:1.1.1")
+    annotationProcessor("com.google.auto.service:auto-service:1.1.1")
 
-
+    // 添加 Java 注解处理 API 依赖
+    implementation("javax.annotation:javax.annotation-api:1.3.2")
+    implementation("org.jetbrains:annotations:23.0.0")
 }
