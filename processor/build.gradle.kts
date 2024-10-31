@@ -20,5 +20,5 @@ dependencies {
 
     // 添加 Java 注解处理 API 依赖
     implementation("javax.annotation:javax.annotation-api:1.3.2")
-    implementation("org.jetbrains:annotations:23.0.0")
+    implementation("org.jetbrains:annotations:23.1.0")
 }
